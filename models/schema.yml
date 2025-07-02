@@ -1,0 +1,29 @@
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        columns:
+        - name: orders_id
+        - name: pdt_id
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+               combination_of_columns:
+                 - orders_id
+                 - pdt_id
+      - name: product
+        identifier: raw_gz_product
+        columns:
+          - name: products_id
+            tests:
+              - unique
+              - not_null
+      - name: ship
+        identifier: raw_gz_ship
+        columns:
+          - name: orders_id
+            tests:
+              - unique
+              - not_null
